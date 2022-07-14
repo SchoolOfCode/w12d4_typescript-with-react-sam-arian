@@ -10,10 +10,15 @@ const initialTodos = [
 ];
 
 export function TodoList() {
-  type InitialToDosType = { id: string; title: string; done: boolean };
-  const [todos, setTodos] = useState<InitialToDosType[]>(initialTodos);
+  type ToDoType = {
+     id: string;
+     title: string;
+     isComplete?: boolean;
+     done?: boolean; 
+  };
+  const [todos, setTodos] = useState<ToDoType[]>(initialTodos);
 
-  function addTodo(newTodoTitle: string) {
+  function addTodo(newTodoTitle: string):void {
     const newTodo = {
       id: nanoid(),
       title: newTodoTitle,
@@ -22,7 +27,7 @@ export function TodoList() {
     setTodos([...todos, newTodo]);
   }
 
-  function updateTodo(id: string, updatedTodo: InitialToDosType) {
+  function updateTodo(id: string, updatedTodo: ToDoType) {
     const newTodos = todos.map((todo) => {
       if (todo.id === id) {
         return {
