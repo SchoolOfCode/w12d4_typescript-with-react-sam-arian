@@ -10,9 +10,10 @@ const initialTodos = [
 ];
 
 export function TodoList() {
-  const [todos, setTodos] = useState(initialTodos);
+  type InitialToDosType = { id: string; title: string; done: boolean };
+  const [todos, setTodos] = useState<InitialToDosType[]>(initialTodos);
 
-  function addTodo(newTodoTitle) {
+  function addTodo(newTodoTitle: string) {
     const newTodo = {
       id: nanoid(),
       title: newTodoTitle,
@@ -21,7 +22,7 @@ export function TodoList() {
     setTodos([...todos, newTodo]);
   }
 
-  function updateTodo(id, updatedTodo) {
+  function updateTodo(id: string, updatedTodo: InitialToDosType) {
     const newTodos = todos.map((todo) => {
       if (todo.id === id) {
         return {
@@ -34,7 +35,7 @@ export function TodoList() {
     setTodos(newTodos);
   }
 
-  function deleteTodo(id) {
+  function deleteTodo(id: string) {
     const newTodos = todos.filter((todo) => todo.id !== id);
     setTodos(newTodos);
   }
