@@ -2,15 +2,27 @@ import { useState } from "react";
 import { TodoButtons } from "./TodoButtons";
 import { TodoTitle } from "./TodoTitle";
 
-export function Todo(props) {
+interface todos {
+  id: string;
+  title: string;
+  done: boolean;
+}
+
+interface TodoProps {
+  todo: todos;
+  updateTodo: (id: string, updatedTodo: todos) => void;
+  deleteTodo: (id: string) => void;
+}
+
+export function Todo(props: TodoProps) {
   const { todo, updateTodo, deleteTodo } = props;
-  const { title, isComplete } = todo;
+  const { title, done } = todo;
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedTodoTitle, setEditedTodoTitle] = useState(title);
 
   function onClickToggle() {
-    const updatedTodo = { ...todo, isComplete: !todo.isComplete };
+    const updatedTodo = { ...todo, done: !done };
     updateTodo(todo.id, updatedTodo);
   }
 
@@ -32,13 +44,13 @@ export function Todo(props) {
     <div className="todo">
       <TodoTitle
         title={title}
-        isComplete={isComplete}
+        done={done}
         isEditing={isEditing}
         editedTodoTitle={editedTodoTitle}
         setEditedTodoTitle={setEditedTodoTitle}
       />
       <TodoButtons
-        isComplete={isComplete}
+        done={done}
         isEditing={isEditing}
         onClickToggle={onClickToggle}
         onClickEditOrDone={isEditing ? onClickDone : onClickEdit}

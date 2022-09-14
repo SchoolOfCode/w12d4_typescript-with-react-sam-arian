@@ -3,6 +3,12 @@ import { nanoid } from "nanoid";
 import { Todo } from "./Todo/Todo";
 import { AddTodo } from "./AddTodo";
 
+interface todos {
+  id: string;
+  title: string;
+  done: boolean;
+}
+
 const initialTodos = [
   { id: nanoid(), title: "Make some 🔥 noodles", done: false },
   { id: nanoid(), title: "Take care of the cats 🐈🐈🐱", done: true },
@@ -12,7 +18,7 @@ const initialTodos = [
 export function TodoList() {
   const [todos, setTodos] = useState(initialTodos);
 
-  function addTodo(newTodoTitle) {
+  function addTodo(newTodoTitle: string): void {
     const newTodo = {
       id: nanoid(),
       title: newTodoTitle,
@@ -20,8 +26,8 @@ export function TodoList() {
     };
     setTodos([...todos, newTodo]);
   }
-
-  function updateTodo(id, updatedTodo) {
+  //{ ...todo, isComplete: !todo.isComplete
+  function updateTodo(id: string, updatedTodo: todos) {
     const newTodos = todos.map((todo) => {
       if (todo.id === id) {
         return {
@@ -34,7 +40,7 @@ export function TodoList() {
     setTodos(newTodos);
   }
 
-  function deleteTodo(id) {
+  function deleteTodo(id: string) {
     const newTodos = todos.filter((todo) => todo.id !== id);
     setTodos(newTodos);
   }
